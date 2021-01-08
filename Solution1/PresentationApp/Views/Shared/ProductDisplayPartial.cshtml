@@ -1,0 +1,28 @@
+﻿@model IEnumerable<ShoppingCart.Application.ViewModels.ProductViewModel>
+
+@foreach (var p in Model)
+{
+    <div class="col-sm-4">
+
+        <div class="card" style="width: 18rem;">
+            <div class="image">
+                <img src="@p.ImageURL" class="card-img-top" alt="...">
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">@p.Name</h5>
+                <p class="card-text">€ @p.Price</p>
+                <a href="Products/Details?id=@p.Id" class="btn btn-primary">Details</a>
+
+                @if (User.IsInRole("Admin"))
+                {
+                    <a href="Products/Delete?id=@p.Id" class="btn btn-danger" onclick="return window.confirm ('Are you sure?')">Delete</a>
+                }
+                else
+                {
+
+                }
+
+                @*Html.ActionLink("Details", "Details", new { id = p.Id }, new { @class = "btn btn-primary" })*@
+            </div>
+        </div>
+    </div>}
