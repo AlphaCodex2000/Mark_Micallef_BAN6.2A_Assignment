@@ -17,6 +17,7 @@ namespace PresentationApp.Controllers
         private IProductService _prodService;
         private iCategoryService _catService;
         private IWebHostEnvironment _env;
+
         public ProductsController(IProductService prodService, iCategoryService categoryService, IWebHostEnvironment env)
         {
             _prodService = prodService;
@@ -29,7 +30,8 @@ namespace PresentationApp.Controllers
             {
 
                 var list = _prodService.GetProducts();
-                return View(list);
+                CatalogModel mdel = new CatalogModel() { Products = list, Categories = _catService.GetCategories() };
+                return View(mdel);
             }
             catch
             {
@@ -43,11 +45,17 @@ namespace PresentationApp.Controllers
             int batchNo = 0;
             string page = HttpContext.Session.GetString("batchNo");
 
-            if (page == null)(batch = 0; ....)
+            if (page == null)
             {
                 batchNo = 0;
+                
+                //next
+                //previous
+
+                //Two buttons that will call Next
+                //and a mthod for the previous
             }
-            else 
+            else
             {
                 batchNo = Convert.ToInt32(HttpContext.Session.GetString("batchNo"));
                 batchNo += 10;
@@ -63,12 +71,28 @@ namespace PresentationApp.Controllers
         {
             return View(_prodService.GetProduct(id));
         }
-        [HttpPost]
-        public IActionResult Search(string category) //view you have to use a Form
+
+
+        // Search Function
+
+
+        /*[HttpPost]
+        public IActionResult Search(string Category) //view you have to use a Form
         {
-            var list = _prodService.GetProducts(category);
+            var list = _prodService.GetProducts(Category);
             return View("Index", list);
+        }*/
+
+        [HttpPost]
+        public IActionResult Search (Guid SelectedCategory) //view you have to use a Form
+        {
+            //1. perform the search therefore you have to return in to a list products by category
+            //2. CatalogModel
+            var list = _prodService.GetProducts(SelectedCategory);
+            CatalogModel mdel = new CatalogModel() { Products = list, Categories = _catService.GetCategories() };
+            return View("Index", mdel);
         }
+
         //--------------------------ADD------------------------------
 
         [HttpGet] //this will be called before loading the Create page

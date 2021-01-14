@@ -96,10 +96,17 @@ namespace ShoppingCart.Application.Services
             return _productsRepo.GetProducts().ProjectTo<ProductViewModel>(_autoMapper.ConfigurationProvider);
         }
         
-        public IQueryable<ProductViewModel> GetProducts(string category)
+        /*public IQueryable<ProductViewModel> GetProducts(string keyword)
         {
-            return _productsRepo.GetProducts().Where(p => p.Description.Contains(category)
-                                                     || p.Name.Contains(category))
+            return _productsRepo.GetProducts().Where(p => p.Description.Contains(keyword)
+                                                     || p.Name.Contains(keyword))
+                    .ProjectTo<ProductViewModel>(_autoMapper.ConfigurationProvider);
+
+        }*/
+
+        public IQueryable<ProductViewModel> GetProducts(Guid category)
+        {
+            return _productsRepo.GetProducts().Where(p => p.CategoryId == category)
                     .ProjectTo<ProductViewModel>(_autoMapper.ConfigurationProvider);
 
         }

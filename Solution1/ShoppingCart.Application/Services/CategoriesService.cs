@@ -1,4 +1,6 @@
-﻿using ShoppingCart.Application.Interfaces;
+﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
+using ShoppingCart.Application.Interfaces;
 using ShoppingCart.Application.ViewModels;
 using ShoppingCart.Domain.Interfaces;
 using System;
@@ -11,9 +13,12 @@ namespace ShoppingCart.Application.Services
     public class CategoriesService : iCategoryService
     {
         private iCategoryRepository _categoriesRepo;
-        public CategoriesService(iCategoryRepository categoriesRepo)
+    
+        private IMapper _autoMapper;
+        public CategoriesService(iCategoryRepository categoriesRepo, IMapper autoMapper)
         {
             _categoriesRepo = categoriesRepo;
+            _autoMapper = autoMapper;
         }
         
         public IQueryable<CategoryViewModel> GetCategories()
