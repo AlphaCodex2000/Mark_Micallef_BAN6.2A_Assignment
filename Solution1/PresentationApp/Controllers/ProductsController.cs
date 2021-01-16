@@ -39,58 +39,77 @@ namespace PresentationApp.Controllers
                 return RedirectToAction("Error", "Home");
             }
         }
-
-        /*public IActionResult Next()
+        
+        public IActionResult Next()
         {
-            int batchNo = 0;
-            string page = HttpContext.Session.GetString("batchNo");
-
-            if (page == null)
+            
+            try
             {
-                batchNo = 0;
-                
-                //next
-                //previous
+                int batchNo = 0;
+                string page = HttpContext.Session.GetString("batchNo");
 
-                //Two buttons that will call Next
-                //and a mthod for the previous
+                if (page == null)
+                {
+                    batchNo = 0;
+
+
+                    //next
+
+                    //previous
+
+                    //Two buttons that will call Next
+                    //and a mthod for the previous
+                }
+                else
+                {
+                    batchNo = Convert.ToInt32(HttpContext.Session.GetString("batchNo"));
+                    batchNo += 10;
+
+                    var list = _prodService.GetProducts().Skip(batchNo).Take(10);
+
+                    HttpContext.Session.SetString("batchNo", batchNo.ToString());
+                    return View("Index", list);
+                }
             }
-            else
+            catch
             {
-                batchNo = Convert.ToInt32(HttpContext.Session.GetString("batchNo"));
-                batchNo += 10;
-
-                var list = _prodService.GetProducts().Skip(batchNo).Take(10);
-
-                HttpContext.Session.SetString("batchNo", batchNo.ToString());
-                return View ("Index", list);
+                TempData["Warning"] = "Failed to load a different page. Please try again later";
+                return RedirectToAction("Error", "Home");
             }
-        }*/
+
+        }
 
         public IActionResult Details(Guid id)
         {
-            return View(_prodService.GetProduct(id));
+            try { 
+                return View(_prodService.GetProduct(id));
+            }
+            catch
+            {
+                TempData["Warning"] = "Failed to load details. Please try again later";
+                return RedirectToAction("Error", "Home");
+            }
         }
 
 
         // Search Function
-
-
-        /*[HttpPost]
-        public IActionResult Search(string Category) //view you have to use a Form
-        {
-            var list = _prodService.GetProducts(Category);
-            return View("Index", list);
-        }*/
 
         [HttpPost]
         public IActionResult Search (Guid SelectedCategory) //view you have to use a Form
         {
             //1. perform the search therefore you have to return in to a list products by category
             //2. CatalogModel
-            var list = _prodService.GetProducts(SelectedCategory);
-            CatalogModel mdel = new CatalogModel() { Products = list, Categories = _catService.GetCategories() };
-            return View("Index", mdel);
+            try
+            {
+                var list = _prodService.GetProducts(SelectedCategory);
+                CatalogModel mdel = new CatalogModel() { Products = list, Categories = _catService.GetCategories() };
+                return View("Index", mdel);
+            }
+            catch
+            {
+                TempData["Warning"] = "Failed to Search for products. Please try again later";
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         //--------------------------ADD------------------------------
@@ -99,13 +118,21 @@ namespace PresentationApp.Controllers
         [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
-            var list = _catService.GetCategories();
 
-            CreateModel model = new CreateModel();
-            model.Categories = list.ToList();
+            try
+            {
+                var list = _catService.GetCategories();
 
-            return View(model);
+                CreateModel model = new CreateModel();
+                model.Categories = list.ToList();
 
+                return View(model);
+            }
+            catch
+            {
+                TempData["Warning"] = "Failed to Create Product. Please try again later";
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         [HttpPost] //2nd method will be triggered when the user clicks on the submit buttom
@@ -149,11 +176,20 @@ namespace PresentationApp.Controllers
         [Authorize(Roles = "Admin")]
         public IActionResult Delete(Guid id)
         {
-            _prodService.DeleteProduct(id);
 
-            TempData["feedback"] = "product deleted successfully"; //View data should be changed to TempData
+            try
+            {
+                _prodService.DeleteProduct(id);
 
-            return RedirectToAction("Index");
+                TempData["feedback"] = "product deleted successfully"; //View data should be changed to TempData
+
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                TempData["Warning"] = "Failed to Delete Product. Please try again later";
+                return RedirectToAction("Error", "Home");
+            }
         }
     }
 }
