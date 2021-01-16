@@ -40,7 +40,7 @@ namespace PresentationApp.Controllers
             }
         }
         
-        public IActionResult Next()
+        /*public IActionResult Next()
         {
             
             try
@@ -77,7 +77,7 @@ namespace PresentationApp.Controllers
                 return RedirectToAction("Error", "Home");
             }
 
-        }
+        }*/
 
         public IActionResult Details(Guid id)
         {

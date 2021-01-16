@@ -20,7 +20,10 @@ namespace ShoppingCart.Domain.Models
         public Guid OrderFk { get; set; }
         public virtual Order Order { get; set;}
 
+        [Required]
         public int Quantity { get; set; }
+
+        [Required]
         public double Price { get; set; }
     }
 }
