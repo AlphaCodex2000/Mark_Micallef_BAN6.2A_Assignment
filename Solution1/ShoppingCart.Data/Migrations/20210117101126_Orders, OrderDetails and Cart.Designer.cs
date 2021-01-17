@@ -10,8 +10,8 @@ using ShoppingCart.Data.Context;
 namespace ShoppingCart.Data.Migrations
 {
     [DbContext(typeof(ShoppingCartDbContext))]
-    [Migration("20210116165007_Added Orders, OrderDetails and Cart")]
-    partial class AddedOrdersOrderDetailsandCart
+    [Migration("20210117101126_Orders, OrderDetails and Cart")]
+    partial class OrdersOrderDetailsandCart
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -25,7 +25,8 @@ namespace ShoppingCart.Data.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uniqueidentifier")
+                        .HasDefaultValueSql("NEWID()");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -80,7 +81,8 @@ namespace ShoppingCart.Data.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uniqueidentifier")
+                        .HasDefaultValueSql("NEWID()");
 
                     b.Property<DateTime>("DatePlaced")
                         .HasColumnType("datetime2");
