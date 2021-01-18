@@ -1,0 +1,44 @@
+﻿@model CatalogModel
+
+<div class="container">
+    @foreach (var cart in Model.Carts) {
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => cart.Id)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => cart.Email)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => cart.ProductFK)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => cart.Quantity)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => cart.Id)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => cart.Email)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => cart.ProductFK)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => cart.Quantity)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    }
+</div>

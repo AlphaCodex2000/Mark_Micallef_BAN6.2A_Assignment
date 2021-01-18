@@ -1,0 +1,13 @@
+﻿@model CatalogModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Shopping Cart</h1>
+<hr />
+<div>
+
+    @Html.Partial("CartProductsPartial", Model)
+</div>
+<hr />

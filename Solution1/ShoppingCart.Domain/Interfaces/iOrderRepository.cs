@@ -10,20 +10,6 @@ namespace ShoppingCart.Domain.Interfaces
     {
         IQueryable<Order> GetOrders();
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
 
 }

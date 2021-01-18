@@ -16,6 +16,7 @@
                 @if (User.IsInRole("Admin"))
                 {
                     <a href="Products/Delete?id=@p.Id" class="btn btn-danger" onclick="return window.confirm ('Are you sure?')">Delete</a>
+                    <a href="Products/Hide?id=@p.Id" class="btn btn-danger" onclick="return window.confirm ('Are you sure?')">Hide</a>
                 }
                 else
                 {

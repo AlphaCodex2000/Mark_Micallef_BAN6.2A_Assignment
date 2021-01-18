@@ -27,6 +27,6 @@ namespace ShoppingCart.Domain.Models
         public Guid CategoryId { get; set; }
         public string ImageURL { get; set; }
 
-        
+        public bool Disabled { get; set; }
     }
 }

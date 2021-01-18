@@ -1,4 +1,5 @@
-﻿using ShoppingCart.Data.Context;
+﻿using Microsoft.EntityFrameworkCore;
+using ShoppingCart.Data.Context;
 using ShoppingCart.Domain.Interfaces;
 using ShoppingCart.Domain.Models;
 using System;
@@ -15,9 +16,19 @@ namespace ShoppingCart.Data.Repositories
         {
             _context = context;
         }
-        public IQueryable<Cart> GetCarts(Guid Id)
+
+        public Cart GetCart(Guid id)
         {
-            throw new NotImplementedException();
+            return _context.Carts.Include(x => x.Product).SingleOrDefault(x => x.Id == id);
         }
+
+        public IQueryable<Cart> GetCart()
+        {
+            return _context.Carts.Include(x => x.Product);
+        }
+
+        public IQueryable<Cart> GetCarts()
+        {
+            return _context.Carts.Include(x => x.Product);         }
     }
 }

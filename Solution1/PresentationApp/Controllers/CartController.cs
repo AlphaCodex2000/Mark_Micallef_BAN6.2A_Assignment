@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using ShoppingCart.Application.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,18 +11,36 @@ namespace PresentationApp.Controllers
 {
     public class CartController : Controller
     {
+        private IProductService _prodService;
+        private iCategoryService _catService;
+        private IWebHostEnvironment _env;
+        private iCartService _cartservice;
+
+        public CartController(IProductService prodService, iCategoryService categoryService, IWebHostEnvironment env, iCartService cartService)
+        {
+            _prodService = prodService;
+            _catService = categoryService;
+            _env = env;
+            _cartservice = cartService;
+        }
+
+      
         public IActionResult Index()
 
         {
-            //get all the items in cart for the logged in user
-            //to get the logged in user: string user = User.Identity.Name
+            var list = _cartservice.GetCarts();
             return View();
+            //get all the items in cart for the logged in user
+            //string user = User.Identity.Name;
+
         }
 
         [HttpPost][Authorize]
         public IActionResult AddtoCart (Guid productId, int qty)
         {
             string user = User.Identity.Name;
+
+
 
             //code to add to cart
             //CartViewModel

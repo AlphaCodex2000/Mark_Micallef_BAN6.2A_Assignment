@@ -36,7 +36,7 @@ namespace ShoppingCart.Data.Repositories
             _context.SaveChanges();
         }
 
-        public Product GetProduct(Guid id)              
+        public Product GetProduct(Guid id)
         {
             return _context.Products.Include(x => x.Category).SingleOrDefault(x => x.Id == id);
         }
@@ -45,6 +45,12 @@ namespace ShoppingCart.Data.Repositories
         {
 
             return _context.Products.Include(x=>x.Category);
+        }
+
+        public void HideProduct(Guid id)
+        {
+            GetProduct(id).Disabled = true;
+            _context.SaveChanges();
         }
     }
 }

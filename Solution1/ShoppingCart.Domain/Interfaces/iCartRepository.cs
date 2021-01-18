@@ -8,6 +8,9 @@ namespace ShoppingCart.Domain.Interfaces
 {
     public interface iCartRepository
     {
-        IQueryable<Cart> GetCarts(Guid Id);
+        Cart GetCart(Guid id);
+
+        IQueryable<Cart> GetCarts();
+
     }
 }

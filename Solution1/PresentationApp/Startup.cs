@@ -15,6 +15,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using ShoppingCart.Data.Context;
 using ShoppingCart.IOC;
+using Microsoft.AspNetCore.Session;
 
 namespace PresentationApp
 {
@@ -68,7 +69,6 @@ namespace PresentationApp
             app.UseStaticFiles();
 
             app.UseRouting();
-
             app.UseAuthentication();
             app.UseAuthorization();
 

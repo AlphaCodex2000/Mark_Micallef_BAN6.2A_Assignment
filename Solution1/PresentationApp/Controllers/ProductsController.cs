@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using PresentationApp.Models;
 using ShoppingCart.Application.Interfaces;
 using ShoppingCart.Application.ViewModels;
+using Microsoft.AspNetCore.Session;
 
 namespace PresentationApp.Controllers
 {
@@ -40,44 +41,6 @@ namespace PresentationApp.Controllers
             }
         }
         
-        /*public IActionResult Next()
-        {
-            
-            try
-            {
-                int batchNo = 0;
-                string page = HttpContext.Session.GetString("batchNo");
-
-                if (page == null)
-                {
-                    batchNo = 0;
-
-
-                    //next
-
-                    //previous
-
-                    //Two buttons that will call Next
-                    //and a mthod for the previous
-                }
-                else
-                {
-                    batchNo = Convert.ToInt32(HttpContext.Session.GetString("batchNo"));
-                    batchNo += 10;
-
-                    var list = _prodService.GetProducts().Skip(batchNo).Take(10);
-
-                    HttpContext.Session.SetString("batchNo", batchNo.ToString());
-                    return View("Index", list);
-                }
-            }
-            catch
-            {
-                TempData["Warning"] = "Failed to load a different page. Please try again later";
-                return RedirectToAction("Error", "Home");
-            }
-
-        }*/
 
         public IActionResult Details(Guid id)
         {
@@ -90,6 +53,19 @@ namespace PresentationApp.Controllers
                 return RedirectToAction("Error", "Home");
             }
         }
+
+        /*public IActionResult Hide(Guid id)
+        {
+            try
+            {
+                
+            }
+            catch
+            {
+                TempData["Warning"] = "Failed to load details. Please try again later";
+                return RedirectToAction("Error", "Home");
+            }
+        }*/
 
 
         // Search Function
@@ -190,6 +166,64 @@ namespace PresentationApp.Controllers
                 TempData["Warning"] = "Failed to Delete Product. Please try again later";
                 return RedirectToAction("Error", "Home");
             }
+
+
+        }
+
+        public IActionResult Next()
+            
+        {
+
+            int index = 0;
+            List<ProductViewModel> list = new List<ProductViewModel>();
+            string page = HttpContext.Session.GetString("positionOfRecordBeingDisplayed");
+
+            if (page == null)
+            {
+                index = 0;
+                list = _prodService.GetNextProduct(10, index).ToList();
+
+            }
+
+            else
+            {
+                index = Convert.ToInt32(HttpContext.Session.GetString("positionOfRecordBeingDisplayed"));
+                index += 10;
+                list = _prodService.GetNextProduct(10, index).ToList();
+
+                HttpContext.Session.SetString("positionOfRecordBeingDisplayed", index.ToString());
+                
+            }
+            return View("Index", list);
+
+        }
+
+        public IActionResult Previous()
+
+        {
+
+            int index = 0;
+            List<ProductViewModel> list = new List<ProductViewModel>();
+            string page = HttpContext.Session.GetString("positionOfRecordBeingDisplayed");
+
+            if (page == null)
+            {
+                index = 0;
+                list = _prodService.GetNextProduct(10, index).ToList();
+
+            }
+
+            else
+            {
+                index = Convert.ToInt32(HttpContext.Session.GetString("positionOfRecordBeingDisplayed"));
+                index += 10;
+                list = _prodService.GetNextProduct(10, index).ToList();
+
+                HttpContext.Session.SetString("positionOfRecordBeingDisplayed", index.ToString());
+
+            }
+            return View("Index", list);
+
         }
     }
 }
