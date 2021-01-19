@@ -170,6 +170,14 @@ namespace PresentationApp.Controllers
 
         }
 
+        [Authorize(Roles = "Admin")]
+        public IActionResult Hide(Guid Id)
+        {
+            _prodService.HideProduct(Id);
+            TempData["feedback"] = "product Hidden ";
+            return RedirectToAction("Index");
+        }
+
         public IActionResult Next()
             
         {

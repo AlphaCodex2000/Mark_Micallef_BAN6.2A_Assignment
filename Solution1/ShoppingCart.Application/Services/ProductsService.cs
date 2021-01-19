@@ -46,6 +46,11 @@ namespace ShoppingCart.Application.Services
             _productsRepo.DeleteProduct(id);
         }
 
+        public void HideProduct(Guid id)
+        {
+            _productsRepo.HideProduct(id);
+        }
+
         public IQueryable<ProductViewModel> GetNextProduct(int noOfRecords, int starting)
         {
             var listofProducts = _productsRepo.GetProducts().Skip(starting).Take(noOfRecords);

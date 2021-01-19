@@ -8,6 +8,18 @@
 <hr />
 <div>
 
-    @Html.Partial("CartProductsPartial", Model)
+    <div class="container">
+
+        <table class="table">
+            @foreach (var c in Model.Carts)
+            {
+                <p class="card-title">@c.Id</p>
+                <p class="card-text">€ @c.Email</p>
+
+            }
+        </table>
+
+    </div>
+
 </div>
 <hr />

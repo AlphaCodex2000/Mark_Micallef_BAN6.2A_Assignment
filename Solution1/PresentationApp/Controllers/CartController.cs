@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using PresentationApp.Models;
 using ShoppingCart.Application.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -29,7 +30,8 @@ namespace PresentationApp.Controllers
 
         {
             var list = _cartservice.GetCarts();
-            return View();
+            CatalogModel mdel = new CatalogModel() {Carts = (IEnumerable<ShoppingCart.Application.ViewModels.CartViewModel>)list };
+            return View(mdel);
             //get all the items in cart for the logged in user
             //string user = User.Identity.Name;
 
