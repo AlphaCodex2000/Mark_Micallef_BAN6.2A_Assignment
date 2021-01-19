@@ -29,7 +29,6 @@ namespace PresentationApp.Controllers
         {
             try
             {
-
                 var list = _prodService.GetProducts();
                 CatalogModel mdel = new CatalogModel() { Products = list, Categories = _catService.GetCategories() };
                 return View(mdel);

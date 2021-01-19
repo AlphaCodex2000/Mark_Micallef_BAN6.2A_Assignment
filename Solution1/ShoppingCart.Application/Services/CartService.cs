@@ -43,9 +43,9 @@ namespace ShoppingCart.Application.Services
             return _cartRepo.GetCarts().ProjectTo<CartViewModel>(_autoMapper.ConfigurationProvider);
         }
 
-        public IQueryable<CartViewModel> GetCarts(Guid product)
+        public IQueryable<CartViewModel> GetCarts(Guid id)
         {
-            return _cartRepo.GetCarts().Where(c => c.ProductFK == product)
+            return _cartRepo.GetCarts().Where(c => c.ProductFK == id)
                     .ProjectTo<CartViewModel>(_autoMapper.ConfigurationProvider);
         }
     }

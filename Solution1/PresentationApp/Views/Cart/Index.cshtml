@@ -6,20 +6,16 @@
 
 <h1>Shopping Cart</h1>
 <hr />
-<div>
+@foreach (var c in Model.Carts)
+{
+    <option value="@c.Id">@c.Product.Name</option>
+    <p>@c.Email</p>
+    <p>@c.Quantity</p>
 
-    <div class="container">
+}
 
-        <table class="table">
-            @foreach (var c in Model.Carts)
-            {
-                <p class="card-title">@c.Id</p>
-                <p class="card-text">€ @c.Email</p>
-
-            }
-        </table>
-
-    </div>
-
-</div>
 <hr />
+
+<div class="col-auto">
+    <button type="submit" class="btn btn-primary onclick="return window.confirm ">Checkout</button>
+</div>

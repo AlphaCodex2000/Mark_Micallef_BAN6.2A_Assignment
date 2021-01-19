@@ -17,6 +17,7 @@ namespace PresentationApp.Controllers
         private IWebHostEnvironment _env;
         private iCartService _cartservice;
 
+
         public CartController(IProductService prodService, iCategoryService categoryService, IWebHostEnvironment env, iCartService cartService)
         {
             _prodService = prodService;
@@ -29,25 +30,30 @@ namespace PresentationApp.Controllers
         public IActionResult Index()
 
         {
+
             var list = _cartservice.GetCarts();
-            CatalogModel mdel = new CatalogModel() {Carts = (IEnumerable<ShoppingCart.Application.ViewModels.CartViewModel>)list };
+            CatalogModel mdel = new CatalogModel() { Carts = list, Products = _prodService.GetProducts(), Categories = _catService.GetCategories() };
+            string user = User.Identity.Name;
             return View(mdel);
             //get all the items in cart for the logged in user
             //string user = User.Identity.Name;
 
         }
 
+        
         [HttpPost][Authorize]
         public IActionResult AddtoCart (Guid productId, int qty)
         {
             string user = User.Identity.Name;
+            var list = _prodService.GetProduct(id)
+            
 
 
 
-            //code to add to cart
-            //CartViewModel
+           //code to add to cart
+           //CartViewModel
 
-            return RedirectToAction("Index");
+           return RedirectToAction("Index");
         }
     }
 }

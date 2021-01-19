@@ -29,6 +29,8 @@ namespace ShoppingCart.Data.Repositories
 
         public IQueryable<Cart> GetCarts()
         {
-            return _context.Carts.Include(x => x.Product);         }
+            return _context.Carts.Include(x => x.Product);
+        }
+
     }
 }

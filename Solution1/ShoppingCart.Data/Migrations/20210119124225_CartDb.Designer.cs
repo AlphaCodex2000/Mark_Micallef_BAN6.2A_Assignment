@@ -10,8 +10,8 @@ using ShoppingCart.Data.Context;
 namespace ShoppingCart.Data.Migrations
 {
     [DbContext(typeof(ShoppingCartDbContext))]
-    [Migration("20210117101126_Orders, OrderDetails and Cart")]
-    partial class OrdersOrderDetailsandCart
+    [Migration("20210119124225_CartDb")]
+    partial class CartDb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -136,6 +136,9 @@ namespace ShoppingCart.Data.Migrations
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("Disabled")
+                        .HasColumnType("bit");
 
                     b.Property<string>("ImageURL")
                         .HasColumnType("nvarchar(max)");
