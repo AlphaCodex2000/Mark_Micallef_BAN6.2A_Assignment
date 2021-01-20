@@ -112,7 +112,7 @@ namespace PresentationApp.Controllers
 
         [HttpPost] //2nd method will be triggered when the user clicks on the submit buttom
         [Authorize(Roles = "Admin")]
-        public IActionResult Create(CreateModel data) //postman, fiffler, burp, zap
+        public IActionResult Create(CreateModel data) //fiffler, burp, zap
         {
             try
             {

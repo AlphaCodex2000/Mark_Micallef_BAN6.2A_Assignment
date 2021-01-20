@@ -33,7 +33,6 @@ namespace ShoppingCart.Data.Repositories
         }
         public Guid addToCart(Cart c)
         {
-            c.Id = Guid.NewGuid();
             _context.Carts.Add(c);
             _context.SaveChanges();
 

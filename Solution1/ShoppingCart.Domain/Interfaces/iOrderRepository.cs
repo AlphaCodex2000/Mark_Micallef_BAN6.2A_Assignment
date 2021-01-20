@@ -8,8 +8,7 @@ namespace ShoppingCart.Domain.Interfaces
 {
     public interface iOrderRepository
     {
-        IQueryable<Order> GetOrders();
-
+        IQueryable<Order> GetOrders(Guid id);
     }
 
 }
