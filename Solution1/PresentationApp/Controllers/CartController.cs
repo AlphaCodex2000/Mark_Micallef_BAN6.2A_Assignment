@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using PresentationApp.Models;
 using ShoppingCart.Application.Interfaces;
+using ShoppingCart.Application.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -42,13 +43,12 @@ namespace PresentationApp.Controllers
 
         
         [HttpPost][Authorize]
-        public IActionResult AddtoCart (Guid productId, int qty)
+        //public IActionResult AddtoCart (Guid productId, int qty)
+        public IActionResult AddtoCart(CartViewModel model)
         {
-            string user = User.Identity.Name;
-            var list = _prodService.GetProduct(id)
-            
-
-
+            model.Id = Guid.NewGuid();
+            _cartservice.addToCart(model);
+            TempData["feedback"] = "Added Product to Cart";
 
            //code to add to cart
            //CartViewModel

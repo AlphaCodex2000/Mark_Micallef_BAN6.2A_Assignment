@@ -13,5 +13,6 @@ namespace ShoppingCart.Application.Interfaces
         IQueryable<CartViewModel> GetCarts(Guid id);
         CartViewModel GetCart(Guid id);
 
+        void addToCart(CartViewModel model);
     }
 }

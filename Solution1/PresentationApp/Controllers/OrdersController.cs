@@ -13,6 +13,7 @@ namespace PresentationApp.Controllers
 
         public IActionResult Checkout()
         {
+
             //1. get all the items from the cart table for the logged in user
             //2. for all items got in (1), check whether you have enough stock
 

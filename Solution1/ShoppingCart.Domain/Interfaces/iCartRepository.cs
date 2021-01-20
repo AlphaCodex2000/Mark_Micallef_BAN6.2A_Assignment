@@ -12,5 +12,6 @@ namespace ShoppingCart.Domain.Interfaces
 
         IQueryable<Cart> GetCarts();
 
+        Guid addToCart(Cart c);
     }
 }

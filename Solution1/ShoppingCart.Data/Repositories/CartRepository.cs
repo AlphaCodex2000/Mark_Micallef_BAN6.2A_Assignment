@@ -31,6 +31,13 @@ namespace ShoppingCart.Data.Repositories
         {
             return _context.Carts.Include(x => x.Product);
         }
+        public Guid addToCart(Cart c)
+        {
+            c.Id = Guid.NewGuid();
+            _context.Carts.Add(c);
+            _context.SaveChanges();
 
+            return c.Id;
+        }
     }
 }

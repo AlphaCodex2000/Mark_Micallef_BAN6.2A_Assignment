@@ -21,6 +21,11 @@ namespace ShoppingCart.Application.Services
             _autoMapper = autoMapper;
         }
 
+        public void addToCart(CartViewModel model)
+        {
+            _cartRepo.addToCart(_autoMapper.Map<Cart>(model));
+        }
+
         public CartViewModel GetCart(Guid id)
         {
             var c = _cartRepo.GetCart(id);

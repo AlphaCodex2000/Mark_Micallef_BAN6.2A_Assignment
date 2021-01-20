@@ -37,7 +37,7 @@ namespace ShoppingCart.Application.Services
 
             _productsRepo.AddProduct(p);
             */
-
+            
             _productsRepo.AddProduct(_autoMapper.Map<Product>(model));
         }
 
