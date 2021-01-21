@@ -13,6 +13,6 @@ namespace ShoppingCart.Application.Interfaces
         IQueryable<CartViewModel> GetCarts(Guid id);
         CartViewModel GetCart(Guid id);
 
-        void addToCart(Guid productId, int qty);
+        void addToCart(Guid productId, int qty, string Email);
     }
 }

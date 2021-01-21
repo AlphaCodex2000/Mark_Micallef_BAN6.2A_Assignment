@@ -44,10 +44,10 @@ namespace PresentationApp.Controllers
         
         [HttpPost][Authorize]
         //public IActionResult AddtoCart (Guid productId, int qty)
-        public IActionResult AddtoCart(Guid productId, int qty)
+        public IActionResult AddtoCart(Guid productId, int qty, string Email)
         {
             string user = User.Identity.Name;
-            _cartservice.addToCart(productId, qty);
+            _cartservice.addToCart(productId, qty, Email);
             TempData["feedback"] = "Added Product to Cart";
 
            //code to add to cart

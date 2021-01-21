@@ -58,6 +58,7 @@
             <form asp-action="AddtoCart" asp-controller="Cart">
 
                 <input type="hidden" value="@Model.Id" name="productId" />
+                <input type="hidden" value="@User.Identity.Name" name="Email" />
 
                 Qty: <input type="text" name="qty" />
                 <br />
