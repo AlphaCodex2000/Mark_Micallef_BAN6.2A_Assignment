@@ -1,12 +1,20 @@
 ﻿@model CatalogModel
 
-    <form class="row g-3" method="post" action="/Products/Next">
+
+    <div class="col-auto">
+        <label> Pagination:</label>
+        <br />
+        <hr />
+    </div>
+    <form class="row g-3" method="post" action="/Products/Previous">
+
         <div class="col-auto">
-            <label> Pagination:</label>
-            <br/>
-            <hr/>
+            <button class="btn btn-danger mb-3">Previous Page</button>
         </div>
+    </form>
+    <form class="row g-3" method="post" action="/Products/Next">
+
         <div class="col-auto">
-            <button class="btn btn-primary mb-3">Next Page</button>
+            <button class="btn btn-success mb-3">Next Page</button>
         </div>
     </form>

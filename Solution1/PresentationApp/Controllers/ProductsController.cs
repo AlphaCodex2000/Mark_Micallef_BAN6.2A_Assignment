@@ -197,7 +197,6 @@ namespace PresentationApp.Controllers
                 index = Convert.ToInt32(HttpContext.Session.GetString("positionOfRecordBeingDisplayed"));
                 index += 10;
                 list = _prodService.GetNextProduct(10, index).ToList();
-
                 
             }
 
@@ -221,7 +220,6 @@ namespace PresentationApp.Controllers
             {
                 index = 10;
                 list = _prodService.GetPreviousProduct(10, index).ToList();
-
             }
 
             else
@@ -229,10 +227,8 @@ namespace PresentationApp.Controllers
                 index = Convert.ToInt32(HttpContext.Session.GetString("positionOfRecordBeingDisplayed"));
                 index -= 10;
                 list = _prodService.GetPreviousProduct(10, index).ToList();
-
-                HttpContext.Session.SetString("positionOfRecordBeingDisplayed", index.ToString());
-
             }
+
             HttpContext.Session.SetString("positionOfRecordBeingDisplayed", index.ToString());
             CatalogModel model = new CatalogModel();
             model.Products = list;
