@@ -6,13 +6,15 @@
 
 <h1>Shopping Cart</h1>
 <hr />
-@foreach (var c in Model.Carts)
+
+@foreach (var c in Model.Carts.Where(c => c.Email == User.Identity.Name))
+    
 {
     <option value="@c.Id">@c.Product.Name</option>
     <p>@c.Email</p>
     <p>@c.Quantity</p>
-
 }
+
 
 <hr />
 
