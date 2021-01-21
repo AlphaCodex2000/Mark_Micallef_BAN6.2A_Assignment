@@ -198,10 +198,14 @@ namespace PresentationApp.Controllers
                 index += 10;
                 list = _prodService.GetNextProduct(10, index).ToList();
 
-                HttpContext.Session.SetString("positionOfRecordBeingDisplayed", index.ToString());
                 
             }
-            return View("Index", list);
+
+            HttpContext.Session.SetString("positionOfRecordBeingDisplayed", index.ToString());
+            CatalogModel model = new CatalogModel();
+            model.Products = list;
+            model.Categories = _catService.GetCategories();
+            return View("Index", model);
 
         }
 
@@ -215,21 +219,26 @@ namespace PresentationApp.Controllers
 
             if (page == null)
             {
-                index = 0;
-                list = _prodService.GetNextProduct(10, index).ToList();
+                index = 10;
+                list = _prodService.GetPreviousProduct(10, index).ToList();
 
             }
 
             else
             {
                 index = Convert.ToInt32(HttpContext.Session.GetString("positionOfRecordBeingDisplayed"));
-                index += 10;
-                list = _prodService.GetNextProduct(10, index).ToList();
+                index -= 10;
+                list = _prodService.GetPreviousProduct(10, index).ToList();
 
                 HttpContext.Session.SetString("positionOfRecordBeingDisplayed", index.ToString());
 
             }
-            return View("Index", list);
+            HttpContext.Session.SetString("positionOfRecordBeingDisplayed", index.ToString());
+            CatalogModel model = new CatalogModel();
+            model.Products = list;
+            model.Categories = _catService.GetCategories();
+            return View("Index", model);
+
 
         }
     }

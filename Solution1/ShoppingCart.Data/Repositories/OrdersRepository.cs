@@ -9,21 +9,27 @@ using System.Text;
 
 namespace ShoppingCart.Data.Repositories
 {
-    class OrdersRepository : iOrderRepository
+    public class OrdersRepository : iOrderRepository
     {
         ShoppingCartDbContext _context;
         public OrdersRepository(ShoppingCartDbContext context)
         {
             _context = context;
         }
+
+        public Order GetOrder(Guid Id)
+        {
+            return _context.Orders.Include(x => x.Id).SingleOrDefault(x => x.Id == Id);
+        }
+
         public IQueryable<Order> GetOrders()
         {
             return _context.Orders.Include(x => x.Id);
         }
 
-        public IQueryable<Order> GetOrders(Guid id)
+        public IQueryable<Order> GetOrders(Guid Id)
         {
-            throw new NotImplementedException();
+            return _context.Orders.Include(x => x.Id);
         }
 
     }

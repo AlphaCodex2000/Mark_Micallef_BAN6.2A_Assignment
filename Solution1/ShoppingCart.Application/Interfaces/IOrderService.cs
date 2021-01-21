@@ -8,7 +8,6 @@ namespace ShoppingCart.Application.Interfaces
 {
     public interface IOrderService
     {
-        IQueryable<OrderViewModel> GetOrders();
-        OrderViewModel GetOrder(Guid Id);
+        OrderViewModel GetOrder(Guid id);
     }
 }

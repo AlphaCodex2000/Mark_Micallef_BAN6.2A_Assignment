@@ -9,6 +9,8 @@ namespace ShoppingCart.Domain.Interfaces
     public interface iOrderRepository
     {
         IQueryable<Order> GetOrders(Guid id);
+
+        Order GetOrder(Guid id);
     }
 
 }

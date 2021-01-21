@@ -19,23 +19,21 @@ namespace ShoppingCart.Application.Services
             _autoMapper = autoMapper;
         }
 
-        public OrderViewModel GetOrder(Guid Id)
+        public OrderViewModel GetOrder(Guid id)
         {
-            var o = _orderRepo.GetOrders(Id);
-            if(o == null)
+            var o = _orderRepo.GetOrders(id);
+            if (o == null)
             {
                 return null;
             }
+
             else
+
             {
                 var result = _autoMapper.Map<OrderViewModel>(o);
                 return result;
-            }
-        }
 
-        public IQueryable<OrderViewModel> GetOrders()
-        {
-            return _orderRepo.GetOrders().ProjectTo<OrderViewModel>(_autoMapper.ConfigurationProvider);
+            }
         }
     }
 }

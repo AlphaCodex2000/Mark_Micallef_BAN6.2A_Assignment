@@ -23,7 +23,8 @@ namespace ShoppingCart.Application.Services
 
         public void addToCart(Guid productId, int qty)
         {
-            _cartRepo.addToCart(_autoMapper.Map<Cart>(_autoMapper.Map(productId, qty)));
+            CartViewModel myModel = new CartViewModel() { ProductFK = productId, Quantity = qty };
+            _cartRepo.addToCart(_autoMapper.Map<Cart>(myModel));
         }
 
         public CartViewModel GetCart(Guid id)
