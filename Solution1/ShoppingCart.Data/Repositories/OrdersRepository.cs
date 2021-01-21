@@ -17,9 +17,9 @@ namespace ShoppingCart.Data.Repositories
             _context = context;
         }
 
-        public Order GetOrder(Guid Id)
+        public Order GetOrder(Guid id)
         {
-            return _context.Orders.Include(x => x.Id).SingleOrDefault(x => x.Id == Id);
+            return _context.Orders.Include(x => x.Id).SingleOrDefault(x => x.Id == id);
         }
 
         public IQueryable<Order> GetOrders()
@@ -27,10 +27,27 @@ namespace ShoppingCart.Data.Repositories
             return _context.Orders.Include(x => x.Id);
         }
 
-        public IQueryable<Order> GetOrders(Guid Id)
+        public IQueryable<Order> GetOrder()
         {
             return _context.Orders.Include(x => x.Id);
         }
 
+        public Guid Checkout(Order o)
+        {
+
+            o.Id = Guid.NewGuid();
+            _context.Orders.Add(o);
+            _context.SaveChanges();
+
+            return o.Id;
+        }
+
+        public int Checkout(OrderDetail od)
+        {
+            
+            _context.OrderDetails.Add(od);
+            _context.SaveChanges();
+            return od.Id;
+        }
     }
 }

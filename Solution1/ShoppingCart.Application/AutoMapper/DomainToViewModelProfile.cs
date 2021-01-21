@@ -14,6 +14,7 @@ namespace ShoppingCart.Application.AutoMapper
             CreateMap<Product, ProductViewModel>();
             CreateMap<Category, CategoryViewModel>();
             CreateMap<Cart, CartViewModel>();
+            CreateMap<Order, OrderViewModel>();
 
             //Product Class was used to model the database
             //ProductViewModel c;ass was used to pass on the data to/from the Presentation project/layer

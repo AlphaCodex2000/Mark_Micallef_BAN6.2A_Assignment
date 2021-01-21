@@ -11,6 +11,6 @@ namespace PresentationApp.Models
         public IEnumerable<ProductViewModel> Products { get; set; }
         public IEnumerable<CategoryViewModel> Categories { get; set; }
         public IEnumerable<CartViewModel> Carts { get; set; }
-        public IEnumerable<MemberViewModel> Members { get; set; }
+        public IEnumerable<OrderViewModel> Orders{ get; set; }
     }
 }

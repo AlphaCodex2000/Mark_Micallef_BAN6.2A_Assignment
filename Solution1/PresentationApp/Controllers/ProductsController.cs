@@ -172,69 +172,91 @@ namespace PresentationApp.Controllers
         [Authorize(Roles = "Admin")]
         public IActionResult Hide(Guid Id)
         {
-            _prodService.HideProduct(Id);
-            TempData["feedback"] = "product Hidden ";
-            return RedirectToAction("Index");
+            try
+            {
+                _prodService.HideProduct(Id);
+                TempData["feedback"] = "product Hidden ";
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                TempData["Warning"] = "Failed to Hide Products. Please try again later";
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         public IActionResult Next()
             
         {
 
-            int index = 0;
-            List<ProductViewModel> list = new List<ProductViewModel>();
-            string page = HttpContext.Session.GetString("positionOfRecordBeingDisplayed");
-
-            if (page == null)
+            try
             {
-                index = 0;
-                list = _prodService.GetNextProduct(10, index).ToList();
+                int index = 0;
+                List<ProductViewModel> list = new List<ProductViewModel>();
+                string page = HttpContext.Session.GetString("positionOfRecordBeingDisplayed");
 
+                if (page == null)
+                {
+                    index = 0;
+                    list = _prodService.GetNextProduct(10, index).ToList();
+                    
+                }
+
+                else
+                {
+                    index = Convert.ToInt32(HttpContext.Session.GetString("positionOfRecordBeingDisplayed"));
+                    index += 10;
+                    list = _prodService.GetNextProduct(10, index).ToList();
+
+                }
+
+                HttpContext.Session.SetString("positionOfRecordBeingDisplayed", index.ToString());
+                CatalogModel model = new CatalogModel();
+                model.Products = list;
+                model.Categories = _catService.GetCategories();
+                return View("Index", model);
             }
-
-            else
+            catch
             {
-                index = Convert.ToInt32(HttpContext.Session.GetString("positionOfRecordBeingDisplayed"));
-                index += 10;
-                list = _prodService.GetNextProduct(10, index).ToList();
-                
+                TempData["Warning"] = "Failed to turn page. Please try again later";
+                return RedirectToAction("Error", "Home");
             }
-
-            HttpContext.Session.SetString("positionOfRecordBeingDisplayed", index.ToString());
-            CatalogModel model = new CatalogModel();
-            model.Products = list;
-            model.Categories = _catService.GetCategories();
-            return View("Index", model);
-
         }
 
         public IActionResult Previous()
 
         {
-
-            int index = 0;
-            List<ProductViewModel> list = new List<ProductViewModel>();
-            string page = HttpContext.Session.GetString("positionOfRecordBeingDisplayed");
-
-            if (page == null)
+            try
             {
-                index = 10;
-                list = _prodService.GetPreviousProduct(10, index).ToList();
-            }
+                int index = 0;
+                List<ProductViewModel> list = new List<ProductViewModel>();
+                string page = HttpContext.Session.GetString("positionOfRecordBeingDisplayed");
 
-            else
+                if (page == null)
+                {
+                    index = 10;
+                    list = _prodService.GetPreviousProduct(10, index).ToList();
+                    _ = page == null;
+                }
+
+                else
+                {
+                    index = Convert.ToInt32(HttpContext.Session.GetString("positionOfRecordBeingDisplayed"));
+                    index -= 10;
+                    list = _prodService.GetPreviousProduct(10, index).ToList();
+                }
+
+                HttpContext.Session.SetString("positionOfRecordBeingDisplayed", index.ToString());
+                CatalogModel model = new CatalogModel();
+                model.Products = list;
+                model.Categories = _catService.GetCategories();
+                return View("Index", model);
+            }
+            catch
             {
-                index = Convert.ToInt32(HttpContext.Session.GetString("positionOfRecordBeingDisplayed"));
-                index -= 10;
-                list = _prodService.GetPreviousProduct(10, index).ToList();
+                TempData["Warning"] = "Failed to turn page. Please try again later";
+                return RedirectToAction("Error", "Home");
             }
-
-            HttpContext.Session.SetString("positionOfRecordBeingDisplayed", index.ToString());
-            CatalogModel model = new CatalogModel();
-            model.Products = list;
-            model.Categories = _catService.GetCategories();
-            return View("Index", model);
-
 
         }
     }
