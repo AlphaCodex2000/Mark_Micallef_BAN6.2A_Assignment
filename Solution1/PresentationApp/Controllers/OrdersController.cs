@@ -31,15 +31,25 @@ namespace PresentationApp.Controllers
 
         [Authorize]
         [HttpPost]
+
         public IActionResult Checkout(OrderViewModel model)
         {
-            model.DatePlaced = DateTime.Now;
-            model.Id = Guid.NewGuid();
-            model.Email = User.Identity.Name;
+            if (model == null)
+            {
+                TempData["feedback"] = "Cart is Empty, Cannot Checkout";
+            }
+            else
+            {
+                model.DatePlaced = DateTime.Now;
+                model.Id = Guid.NewGuid();
+                model.Email = User.Identity.Name;
 
-            _orderservice.CheckoutOrder(model);
+                _orderservice.CheckoutOrder(model);
 
-            TempData["feedback"] = "Checkout Completed";
+                TempData["feedback"] = "Checkout Completed";
+                return RedirectToAction("Index");
+            }
+
             return RedirectToAction("Index");
 
 
