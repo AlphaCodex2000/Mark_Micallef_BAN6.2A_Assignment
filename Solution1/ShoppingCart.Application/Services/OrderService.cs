@@ -13,17 +13,17 @@ namespace ShoppingCart.Application.Services
 {
     public class OrderService : IOrderService
     {
-        private iOrderRepository _orderRepo;
+        private iOrderDetailRepository _orderRepo;
         private iCartRepository _cartRepo;
         private IMapper _autoMapper;
-        public OrderService(iOrderRepository orderRepo, IMapper autoMapper, iCartRepository cartRepo)
+        public OrderService(iOrderDetailRepository orderRepo, IMapper autoMapper, iCartRepository cartRepo)
         {
             _cartRepo = cartRepo;
             _orderRepo = orderRepo;
             _autoMapper = autoMapper;
         }
 
-        public void Checkout(OrderViewModel model)
+        public void CheckoutOrder(OrderViewModel model)
         {
             //OrderViewModel myModel = new OrderViewModel() {Id = Id, DatePlaced = DatePlaced, Email = Email};
             _orderRepo.Checkout(_autoMapper.Map<Order>(model));

@@ -5,26 +5,44 @@ using ShoppingCart.Domain.Interfaces;
 using ShoppingCart.Domain.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace ShoppingCart.Application.Services
 {
     public class OrderDetailService : IOrderDetailService
     {
-        private iOrderRepository _orderRepo;
+        private iOrderDetailRepository _orderRepo;
         private iCartRepository _cartRepo;
         private IMapper _autoMapper;
-        public OrderDetailService(iOrderRepository orderRepo, IMapper autoMapper, iCartRepository cartRepo)
+        private iOrderDetailRepository _orderDetailRepo;
+        public OrderDetailService(iOrderDetailRepository orderRepo, IMapper autoMapper, iCartRepository cartRepo, iOrderDetailRepository orderDetailRepository)
         {
             _cartRepo = cartRepo;
             _orderRepo = orderRepo;
             _autoMapper = autoMapper;
+            _orderDetailRepo = orderDetailRepository;
         }
 
-        public void Checkout(int Id, Guid ProductFk, Guid OrderFK, int qty, double Price)
+        public void Checkout(OrderDetail model)
         {
-            OrderDetailViewModel myModel = new OrderDetailViewModel() { Id = Id, OrderFk = OrderFK, Quantity = qty, Price = Price };
-            _orderRepo.Checkout(_autoMapper.Map<OrderDetail>(myModel));
+            throw new NotImplementedException();
+        }
+
+        public void CheckoutDetail(OrderDetail model)
+        {
+            throw new NotImplementedException();
+            //_orderDetailRepo.Checkout(_autoMapper.Map<OrderDetail>(model));
+        }
+
+        public OrderDetailViewModel GetOrderDetail(OrderDetailViewModel model)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IQueryable<OrderViewModel> GetOrderDetails()
+        {
+            throw new NotImplementedException();
         }
     }
 }

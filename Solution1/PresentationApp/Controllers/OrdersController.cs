@@ -18,34 +18,31 @@ namespace PresentationApp.Controllers
         private IWebHostEnvironment _env;
         private iCartService _cartservice;
         private IOrderService _orderservice;
-        private IOrderDetailService _orderDetailService;
 
 
-        public OrdersController(IProductService prodService, iCategoryService categoryService, IWebHostEnvironment env, iCartService cartService, IOrderService orderService, IOrderDetailService orderDetailService)
+        public OrdersController(IProductService prodService, iCategoryService categoryService, IWebHostEnvironment env, iCartService cartService, IOrderService orderService)
         {
             _prodService = prodService;
             _catService = categoryService;
             _env = env;
             _cartservice = cartService;
             _orderservice = orderService;
-            _orderDetailService = orderDetailService;
         }
+
         [Authorize]
         [HttpPost]
-
-
         public IActionResult Checkout(OrderViewModel model)
         {
             model.DatePlaced = DateTime.Now;
             model.Id = Guid.NewGuid();
             model.Email = User.Identity.Name;
 
-            _orderservice.Checkout(model);
+            _orderservice.CheckoutOrder(model);
 
             TempData["feedback"] = "Checkout Completed";
             return RedirectToAction("Index");
 
-            
+
             //1. get all the items from the cart table for the logged in user
             //2. for all items got in (1), check whether you have enough stock
 

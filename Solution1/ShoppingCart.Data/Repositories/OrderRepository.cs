@@ -9,7 +9,7 @@ using System.Text;
 
 namespace ShoppingCart.Data.Repositories
 {
-    public class OrdersRepository : iOrderRepository
+    public class OrdersRepository : iOrderDetailRepository
     {
         ShoppingCartDbContext _context;
         public OrdersRepository(ShoppingCartDbContext context)
@@ -40,14 +40,6 @@ namespace ShoppingCart.Data.Repositories
             _context.SaveChanges();
 
             return o.Id;
-        }
-
-        public int Checkout(OrderDetail od)
-        {
-            
-            _context.OrderDetails.Add(od);
-            _context.SaveChanges();
-            return od.Id;
         }
     }
 }
